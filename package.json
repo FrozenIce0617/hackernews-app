@@ -7,6 +7,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios:device": "yarn ios --device \"iPhone\"",
+    "install:ios": "cd ios && pod install",
     "test": "jest",
     "link:icons": "react-native link react-native-vector-icons",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

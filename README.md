@@ -36,9 +36,11 @@ git clone https://github.com/FrozenIce0617/hackernews-app.git
 2. Install dependencies
 ```
 yarn
+
+yarn install:ios
 ```
 
 3. Run project
 ```
-yarn start
+yarn ios
 ```
