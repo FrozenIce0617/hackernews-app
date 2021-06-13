@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-native start --reset-cache",
     "android": "react-native run-android",
-    "ios": "react-native run-ios reset-cache",
+    "ios": "react-native run-ios",
     "ios:device": "yarn ios --device \"iPhone\"",
     "test": "jest",
     "link:icons": "react-native link react-native-vector-icons",
@@ -15,7 +15,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "react": "17.0.1",
-    "react-native": "0.64.1"
+    "react-native": "0.64.1",
+    "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
