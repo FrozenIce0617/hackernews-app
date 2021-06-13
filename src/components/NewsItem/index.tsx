@@ -59,7 +59,7 @@ const NewsItem: React.FC<Props> = ({ id }) => {
   const { fetchItem, items } = appState;
   const [item, setItem] = React.useState<ItemType>(null);
 
-  const [expended, setExpended] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
   React.useEffect(() => {
     !item && !items[id] && fetchItem(id);
@@ -71,7 +71,7 @@ const NewsItem: React.FC<Props> = ({ id }) => {
   }, [items, item]);
 
   const handleExpend = () => {
-    setExpended(!expended);
+    setExpanded(!expanded);
   };
 
   return (
@@ -90,7 +90,7 @@ const NewsItem: React.FC<Props> = ({ id }) => {
               </Text>
             </View>
             <View>
-              {expended && (
+              {expanded && (
                 <View style={styles.content}>
                   <Text key={`${item?.id}@${item?.url}`} style={styles.url}>
                     {getHostName(item?.url)}
