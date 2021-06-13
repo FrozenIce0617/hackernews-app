@@ -1,22 +1,21 @@
 import { UserType } from "@src/types";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useApp } from "@src/context";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
+const userIcon = <FontAwesome5 name="feather" size={14} />;
+
+const karmaIcon = <FontAwesome5 name="dharmachakra" size={14} />;
+
+const loadingIcon = <ActivityIndicator size={10} />;
 
 type Props = {
   name: string;
 };
 
 const styles = StyleSheet.create<any>({
-  container: {
-    paddingBottom: 7,
-    paddingTop: 7,
-    marginLeft: 15,
-    marginRight: 0,
-    borderWidth: 0,
-    borderColor: "#d6d7da",
-    borderBottomWidth: 0.5,
-  },
+  container: {},
   title: { color: "blue" },
 });
 
@@ -37,11 +36,11 @@ const UserItem: React.FC<Props> = ({ name }) => {
   return (
     <View>
       {!user ? (
-        <Text>Loading...</Text>
+        <View>{loadingIcon}</View>
       ) : (
-        <View style={styles.container}>
-          <Text key={`${user?.id}`}>{name},{user?.karma}</Text>
-        </View>
+        <Text key={`${user?.id}`}>
+          {userIcon} {name}, {karmaIcon} {user?.karma}
+        </Text>
       )}
     </View>
   );

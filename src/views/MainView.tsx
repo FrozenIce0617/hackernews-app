@@ -1,8 +1,21 @@
 import React, { ReactElement } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { useApp } from "@src/context";
 import NewsItem from "@src/components/NewsItem";
 import { colors } from "@src/utils";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
+const logoIcon = (
+  <FontAwesome5 name="hacker-news-square" size={30} color={colors.headColor} />
+);
+
+const loadingIcon = <ActivityIndicator size={30} />;
 
 const MainView: React.FC = () => {
   const [appState] = useApp();
@@ -34,8 +47,16 @@ const MainView: React.FC = () => {
 
   const renderHeader = (): ReactElement => {
     return (
-      <View>
-        <Text style={styles.header}>
+      <View style={styles.header}>
+        {logoIcon}
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "600",
+            marginLeft: 10,
+            color: colors.headColor,
+          }}
+        >
           {storyList?.length ? "Hacker News" : ""}
         </Text>
       </View>
@@ -45,7 +66,7 @@ const MainView: React.FC = () => {
   return (
     <View style={styles.mainView}>
       {_loading ? (
-        <Text>Loading...</Text>
+        <View style={styles.loading}>{loadingIcon}</View>
       ) : (
         <FlatList
           testID="news-list"
@@ -53,6 +74,7 @@ const MainView: React.FC = () => {
           renderItem={({ item }) => <NewsItem id={item} />}
           keyExtractor={(item, index) => index.toString()}
           ListHeaderComponent={renderHeader()}
+          stickyHeaderIndices={[0]}
         />
       )}
     </View>
@@ -66,18 +88,14 @@ const styles = StyleSheet.create({
   },
 
   header: {
+    flexDirection: "row",
+    padding: 10,
     backgroundColor: colors.headBg,
-    color: colors.headColor,
-    padding: 20,
-    height: 60,
-    fontSize: 25,
-    fontWeight: "800",
   },
-  loadingTitle: {
-    backgroundColor: colors.loadingTextPlaceholder,
-    height: 17,
-    marginTop: 3,
-    marginBottom: 3,
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

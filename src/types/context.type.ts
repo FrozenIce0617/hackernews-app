@@ -1,6 +1,4 @@
 export type ItemType = {
-  _loading?: boolean;
-  _loaded?: boolean;
   id: string;
   text?: string;
   by?: string;
@@ -14,8 +12,6 @@ export type ItemType = {
 };
 
 export type UserType = {
-  _loading?: boolean;
-  _loaded?: boolean;
   id: string;
   karma: number;
 };

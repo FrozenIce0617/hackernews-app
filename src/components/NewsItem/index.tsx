@@ -1,8 +1,17 @@
 import { ItemType } from "@src/types";
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { useApp } from "@src/context";
-import UserItem from '@src/components/UserItem'
+import UserItem from "@src/components/UserItem";
+import { colors, getHostName, timeAgo } from "@src/utils";
+
+const loadingIcon = <ActivityIndicator size={30} />;
 
 type Props = {
   id: string;
@@ -10,20 +19,44 @@ type Props = {
 
 const styles = StyleSheet.create<any>({
   container: {
-    paddingBottom: 7,
-    paddingTop: 7,
-    marginLeft: 15,
-    marginRight: 0,
-    borderWidth: 0,
-    borderColor: "#d6d7da",
-    borderBottomWidth: 0.5,
+    margin: 10,
+    marginBottom: 0,
+    padding: 10,
+    backgroundColor: colors.itemBodyBg,
+    borderRadius: 5,
   },
-  title: { color: "blue" },
+  content: {
+    paddingLeft: 45,
+  },
+  title: {
+    color: "black",
+    fontWeight: "bold",
+    flex: 1,
+    flexDirection: "row",
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  score: {
+    textAlign: "center",
+    width: 40,
+    marginRight: 5,
+    padding: 5,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  info: { flex: 1, flexDirection: "row", justifyContent: "space-between" },
+  url: {
+    padding: 5,
+    textAlign: "left",
+    color: "#73706E",
+  },
 });
 
 const NewsItem: React.FC<Props> = ({ id }) => {
   const [appState] = useApp();
-  const { fetchItem, items, users } = appState;
+  const { fetchItem, items } = appState;
   const [item, setItem] = React.useState<ItemType>(null);
 
   const [expended, setExpended] = React.useState(false);
@@ -43,27 +76,37 @@ const NewsItem: React.FC<Props> = ({ id }) => {
 
   return (
     <View>
-      {!item ? (
-        <Text>Loading...</Text>
-      ) : (
-        <View style={styles.container}>
-          <TouchableOpacity onPress={handleExpend}>
-            <Text style={styles.title} key={`${item?.id}@${item?.title}`}>{item?.title}</Text>
-          </TouchableOpacity>
-          {expended && (
-            <View>
-              <Text key={`${item?.id}@${item?.score}`}>
+      <TouchableOpacity onPress={handleExpend}>
+        {!item ? (
+          <View>{loadingIcon}</View>
+        ) : (
+          <View style={styles.container}>
+            <View style={styles.title}>
+              <Text key={`${item?.id}@${item?.score}`} style={styles.score}>
                 {item?.score}
               </Text>
-              <Text key={`${item?.id}@${item?.url}`}>{item?.url}</Text>
-              <Text key={`${item?.time}@${item?.time}`}>
-                {item?.time}
+              <Text style={styles.title} key={`${item?.id}@${item?.title}`}>
+                {item?.title}
               </Text>
-              <UserItem name={item.by}/>
             </View>
-          )}
-        </View>
-      )}
+            <View>
+              {expended && (
+                <View style={styles.content}>
+                  <Text key={`${item?.id}@${item?.url}`} style={styles.url}>
+                    {getHostName(item?.url)}
+                  </Text>
+                  <View style={styles.info}>
+                    <UserItem name={item.by} />
+                    <Text key={`${item?.time}@${item?.time}`}>
+                      {timeAgo(item?.time)}
+                    </Text>
+                  </View>
+                </View>
+              )}
+            </View>
+          </View>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
