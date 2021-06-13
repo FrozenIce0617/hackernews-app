@@ -1,9 +1,9 @@
 ### Mini Hacker News App
 
 This is a simple Hacker News Client App on React Native.
-![screenshot1](./screenshots/news_list_01.png)
-![screenshot1](./screenshots/news_list_02.png)
-![screenshot1](./screenshots/news_list_03.png)
+![screenshot1](./screenshots/news_list_01.png){ width=45% }
+![screenshot2](./screenshots/news_list_02.png){ width=45% }
+![screenshot3](./screenshots/news_list_03.png){ width=45% }
 
 ## Features
 - The news list page contains a list of hacker news
